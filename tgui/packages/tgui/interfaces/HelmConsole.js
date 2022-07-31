@@ -42,7 +42,7 @@ export const HelmConsole = (_props, context) => {
 
 const SharedContent = (_props, context) => {
   const { act, data } = useBackend(context);
-  const { isViewer, shipInfo = [], otherInfo = [] } = data;
+  const { isViewer, integrity, shipInfo = [], otherInfo = [] } = data;
   return (
     <>
       <Section
@@ -70,6 +70,17 @@ const SharedContent = (_props, context) => {
       >
         <LabeledList>
           <LabeledList.Item label="Class">{shipInfo.class}</LabeledList.Item>
+          <LabeledList.Item label="Integrity">
+            <ProgressBar
+              ranges={{
+                good: [51, 100],
+                average: [26, 50],
+                bad: [0, 25],
+              }}
+              maxValue={100}
+              value={integrity}
+            />
+          </LabeledList.Item>
           <LabeledList.Item label="Sensor Range">
             <ProgressBar
               value={shipInfo.sensor_range}
@@ -90,11 +101,25 @@ const SharedContent = (_props, context) => {
         <Table>
           <Table.Row bold>
             <Table.Cell>Name</Table.Cell>
+            <Table.Cell>Integrity</Table.Cell>
             {!isViewer && <Table.Cell>Act</Table.Cell>}
           </Table.Row>
           {otherInfo.map((ship) => (
             <Table.Row key={ship.name}>
               <Table.Cell>{ship.name}</Table.Cell>
+              <Table.Cell>
+                {!!ship.integrity && (
+                  <ProgressBar
+                    ranges={{
+                      good: [51, 100],
+                      average: [26, 50],
+                      bad: [0, 25],
+                    }}
+                    maxValue={100}
+                    value={ship.integrity}
+                  />
+                )}
+              </Table.Cell>
               {!isViewer && (
                 <Table.Cell>
                   <Button

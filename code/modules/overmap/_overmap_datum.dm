@@ -13,6 +13,8 @@
 	var/name
 	/// The character that represents this overmap datum on the overmap in ASCII mode.
 	var/char_rep
+	///Integrity percentage, do NOT modify. Use [/obj/structure/overmap/proc/receive_damage] instead.
+	var/integrity = 100
 
 	/// The x position of this datum on the overmap. Use [/datum/overmap/proc/move] to change this.
 	VAR_FINAL/x
