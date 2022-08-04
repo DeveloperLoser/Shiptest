@@ -153,7 +153,6 @@
 
 /obj/machinery/computer/helm/ui_data(mob/user)
 	. = list()
-	.["integrity"] = current_ship.integrity
 	if(!current_ship)
 		return
 
@@ -162,7 +161,6 @@
 	for (var/datum/overmap/object as anything in current_ship.get_nearby_overmap_objects())
 		var/list/other_data = list(
 			name = object.name,
-			integrity = object.integrity,
 			ref = REF(object)
 		)
 		.["otherInfo"] += list(other_data)
